@@ -110,7 +110,6 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes><!-- 一组文件名的匹配模式，被匹配的资源文件将被构建过程处理 -->
-					<include>bootstrap-${env}.properties</include>
 					<include>bootstrap.properties</include>
 				</includes>
 			</resource>
