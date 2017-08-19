@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.neo</groupId>
+	<artifactId>spring-boot-mybatis-annotation</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>spring-boot-mybatis-annotation</name>
+	<description>project for Spring Boot and mybatis</description>
+
+	<parent> <!--springboot父节点依赖   引入这个之后相关的引入就不需要添加version配置，spring boot会自动选择最合适的版本进行添加。-->
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+
+	<dependencies>
+		<dependency><!-- Spring Boot的核心启动器，包含了自动配置、日志和YAML -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency><!-- 支持常规的测试依赖，包括JUnit、Hamcrest、Mockito以及spring-test模块。-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency><!-- springcloud的eureka组件 -->
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		<dependency> <!-- 支持全栈式Web开发，包括Tomcat和spring-webmvc -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency><!-- 整合MyBatis的核心依赖 -->
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency><!-- mysql数据库驱动 -->
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency><!-- 热部署 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency><!-- json解析 -->
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+		<dependency><!-- 数据库连接池 -->
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.29</version>
+		</dependency>
+		<dependency><!-- 单元测试 -->
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>  <!-- 添加redis支持-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+		</dependency>
+		<dependency><!-- 支持Spring的Cache抽象 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	<dependencyManagement><!-- 版本依赖管理 -->
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Dalston.SR1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory><!-- 资源文件的路径 -->
+				<filtering>true</filtering>
+				<excludes><!-- 一组文件名的匹配模式，被匹配的资源文件将被构建过程忽略。同时被includes和excludes匹配的资源文件，将被忽略。 -->
+					<exclude>bootstrap-test.properties</exclude>
+					<exclude>bootstrap-dev.properties</exclude>
+					<exclude>bootstrap-pro.properties</exclude>
+					<exclude>bootstrap.properties</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes><!-- 一组文件名的匹配模式，被匹配的资源文件将被构建过程处理 -->
+					<include>bootstrap-${env}.properties</include>
+					<include>bootstrap.properties</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins><!-- 给出构建过程中所用到的插件 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration><!-- 该插件所需要的特殊配置，在父子项目之间可以覆盖或合并 -->
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
